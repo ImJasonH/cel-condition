@@ -46,3 +46,34 @@ When the Pipeline is run, the Task will only run and echo `hello` if the number
 
 * Tekton will spawn a Pod just to evaluate the expression, when it's perfectly
   safe to evaluate the expression in the control plane.
+
+# CLI example
+
+This can also be run as a simple Go binary:
+
+```
+$ go run . '3 == 3'
+2020/06/11 20:23:22 evaluating "3 == 3"
+2020/06/11 20:23:22 result is true
+
+$ go run . '3 == 4'
+2020/06/11 20:23:28 evaluating "3 == 4"
+2020/06/11 20:23:28 result is false
+exit status 1
+
+$ go run . 'true'
+2020/06/11 20:23:35 evaluating "true"
+2020/06/11 20:23:35 result is true
+
+$ go run . 'false'
+2020/06/11 20:23:38 evaluating "false"
+2020/06/11 20:23:38 result is false
+exit status 1
+
+$ go run . 'TOTALLY INVALID SYNTAX'
+2020/06/11 20:23:49 evaluating "TOTALLY INVALID SYNTAX"
+2020/06/11 20:23:49 ERROR: <input>:1:9: Syntax error: mismatched input 'INVALID' expecting <EOF>
+ | TOTALLY INVALID SYNTAX
+ | ........^
+exit status 1
+```
