@@ -1,0 +1,11 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Condition
+metadata:
+  name: cel
+spec:
+  parameters:
+  - name: expression
+    default: 'true'
+  check:
+    image: ko://github.com/imjasonh/cel-condition
+    args: ['$(params.expression)']
